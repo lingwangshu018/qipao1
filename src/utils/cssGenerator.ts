@@ -1465,7 +1465,81 @@ export function generatePuffCSS(config: AppConfig): string {
 ${getModalCss(config, 'sully')}`;
 }
 
+export function generatePuffShortCSS(config: AppConfig): string {
+  const { ai, user } = config;
+  const bwAi = calcSafeBw(ai.slice);
+  const bwUser = calcSafeBw(user.slice);
+
+  const aiVoice = ai.voice || { url: ai.url, slice: ai.slice, pad: [0, 8, 1, 8], patternScale: 1.4 };
+  const userVoice = user.voice || { url: user.url, slice: user.slice, pad: [0, 8, 1, 8], patternScale: 1.4 };
+  const bwAiVoice = calcSafeBw(aiVoice.slice);
+  const bwUserVoice = calcSafeBw(userVoice.slice);
+
+  const aiTransfer = ai.transfer || { url: ai.url, slice: ai.slice, pad: [6, 12, 6, 12], patternScale: 1.3 };
+  const userTransfer = user.transfer || { url: user.url, slice: user.slice, pad: [6, 14, 6, 14], patternScale: 1.3 };
+  const bwAiTransfer = calcTransferBw(aiTransfer.slice);
+  const bwUserTransfer = calcTransferBw(userTransfer.slice);
+
+  return `/* Puff 精简短模板 */
+
+/* 1. 对方(AI) 气泡/语音/转账 */
+.chat-msg.is-them .chat-bubble {
+  border-image-source: url('${ai.url}') !important;
+  border-image-slice: ${ai.slice[0]} ${ai.slice[1]} ${ai.slice[2]} ${ai.slice[3]} fill !important;
+  border-width: ${bwAi[0]}px ${bwAi[1]}px ${bwAi[2]}px ${bwAi[3]}px !important;
+  padding: ${ai.pad[0]}px ${ai.pad[1]}px ${ai.pad[2]}px ${ai.pad[3]}px !important;
+  color: ${ai.textColor} !important;
+}
+
+.chat-msg.is-them .puff-voice-pill,
+.chat-msg.is-them .voice-msg-bubble {
+  border-image-source: url('${aiVoice.url}') !important;
+  border-image-slice: ${aiVoice.slice[0]} ${aiVoice.slice[1]} ${aiVoice.slice[2]} ${aiVoice.slice[3]} fill !important;
+  border-width: ${bwAiVoice[0]}px ${bwAiVoice[1]}px ${bwAiVoice[2]}px ${bwAiVoice[3]}px !important;
+  padding: ${aiVoice.pad[0]}px ${aiVoice.pad[1]}px ${aiVoice.pad[2]}px ${aiVoice.pad[3]}px !important;
+  color: ${ai.textColor} !important;
+}
+
+.chat-msg.is-them .puff-transfer,
+.chat-msg.is-them .chat-transfer-card {
+  border-image-source: url('${aiTransfer.url}') !important;
+  border-image-slice: ${aiTransfer.slice[0]} ${aiTransfer.slice[1]} ${aiTransfer.slice[2]} ${aiTransfer.slice[3]} fill !important;
+  border-width: ${bwAiTransfer[0]}px ${bwAiTransfer[1]}px ${bwAiTransfer[2]}px ${bwAiTransfer[3]}px !important;
+  padding: ${aiTransfer.pad[0]}px ${aiTransfer.pad[1]}px ${aiTransfer.pad[2]}px ${aiTransfer.pad[3]}px !important;
+}
+
+/* 2. 己方(用户) 气泡/语音/转账 */
+.chat-msg.is-me .chat-bubble {
+  border-image-source: url('${user.url}') !important;
+  border-image-slice: ${user.slice[0]} ${user.slice[1]} ${user.slice[2]} ${user.slice[3]} fill !important;
+  border-width: ${bwUser[0]}px ${bwUser[1]}px ${bwUser[2]}px ${bwUser[3]}px !important;
+  padding: ${user.pad[0]}px ${user.pad[1]}px ${user.pad[2]}px ${user.pad[3]}px !important;
+  color: ${user.textColor} !important;
+}
+
+.chat-msg.is-me .puff-voice-pill,
+.chat-msg.is-me .voice-msg-bubble {
+  border-image-source: url('${userVoice.url}') !important;
+  border-image-slice: ${userVoice.slice[0]} ${userVoice.slice[1]} ${userVoice.slice[2]} ${userVoice.slice[3]} fill !important;
+  border-width: ${bwUserVoice[0]}px ${bwUserVoice[1]}px ${bwUserVoice[2]}px ${bwUserVoice[3]}px !important;
+  padding: ${userVoice.pad[0]}px ${userVoice.pad[1]}px ${userVoice.pad[2]}px ${userVoice.pad[3]}px !important;
+  color: ${user.textColor} !important;
+}
+
+.chat-msg.is-me .puff-transfer,
+.chat-msg.is-me .chat-transfer-card {
+  border-image-source: url('${userTransfer.url}') !important;
+  border-image-slice: ${userTransfer.slice[0]} ${userTransfer.slice[1]} ${userTransfer.slice[2]} ${userTransfer.slice[3]} fill !important;
+  border-width: ${bwUserTransfer[0]}px ${bwUserTransfer[1]}px ${bwUserTransfer[2]}px ${bwUserTransfer[3]}px !important;
+  padding: ${userTransfer.pad[0]}px ${userTransfer.pad[1]}px ${userTransfer.pad[2]}px ${userTransfer.pad[3]}px !important;
+}
+`;
+}
+
 export function generateCSS(config: AppConfig, type: ExportType): string {
+  if (type === 'puff_short') {
+    return generatePuffShortCSS(config);
+  }
   if (type === 'float') {
     return generateFloatCSS(config);
   }

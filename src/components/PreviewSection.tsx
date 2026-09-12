@@ -22,7 +22,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 }) => {
   const { ai, user } = config;
   const currentPlatform: ExportType = (exportType as ExportType) || 'sully';
-  const isDirectBorderModel = currentPlatform === 'sully' || currentPlatform === 'float' || currentPlatform === 'puff';
+  const isDirectBorderModel = currentPlatform === 'sully' || currentPlatform === 'float' || currentPlatform === 'puff' || currentPlatform === 'puff_short';
 
   const [isPlayingAi, setIsPlayingAi] = useState(false);
   const [isPlayingUser, setIsPlayingUser] = useState(false);
@@ -190,15 +190,15 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
           <div className="flex bg-[#e5e7eb] p-0.5 border border-black rounded-lg shadow-xs">
             <button
               type="button"
-              onClick={() => onSelectExportType?.('sully')}
+              onClick={() => onSelectExportType?.('puff_short')}
               className={`px-2 py-0.5 rounded text-[10px] font-black transition-all ${
-                currentPlatform === 'sully'
+                currentPlatform === 'puff_short'
                   ? 'bg-black text-white shadow-xs'
                   : 'text-gray-700 hover:text-black'
               }`}
-              title="切换为 Sully 单层真实盒模型（border-image 作用于气泡自身）"
+              title="切换为 Puff 迷你短模板（精简 CSS 样式）"
             >
-              Sully 原生
+              Puff 短模板
             </button>
             <button
               type="button"
@@ -208,9 +208,21 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
                   ? 'bg-black text-white shadow-xs'
                   : 'text-gray-700 hover:text-black'
               }`}
-              title="切换为 Puff 经典对话框盒模型（支持 --dress-bubble-* 变量与精准选择器）"
+              title="切换为 Puff 经典完整模版（包含完整属性与重置防御规则）"
             >
-              Puff 经典
+              Puff 完整版
+            </button>
+            <button
+              type="button"
+              onClick={() => onSelectExportType?.('sully')}
+              className={`px-2 py-0.5 rounded text-[10px] font-black transition-all ${
+                currentPlatform === 'sully'
+                  ? 'bg-black text-white shadow-xs'
+                  : 'text-gray-700 hover:text-black'
+              }`}
+              title="切换为 Sully 单层真实盒模型"
+            >
+              Sully
             </button>
             <button
               type="button"
@@ -220,21 +232,9 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
                   ? 'bg-black text-white shadow-xs'
                   : 'text-gray-700 hover:text-black'
               }`}
-              title="切换为 Float 原生聊天室盒模型（包含 .chat-markdown 嵌套结构）"
+              title="切换为 Float 原生盒模型"
             >
-              Float 原生
-            </button>
-            <button
-              type="button"
-              onClick={() => onSelectExportType?.('link')}
-              className={`px-2 py-0.5 rounded text-[10px] font-black transition-all ${
-                currentPlatform === 'link'
-                  ? 'bg-black text-white shadow-xs'
-                  : 'text-gray-700 hover:text-black'
-              }`}
-              title="切换为 LINK ::before 双层隔离盒模型"
-            >
-              LINK 线上
+              Float
             </button>
           </div>
         </div>
