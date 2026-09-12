@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ActiveComp, ActiveMode, ActiveRole, ComponentConfig, ExportType, QuadrantValues } from '../types';
 import { Minus, Plus, Info, RefreshCw, Eye, Sparkles } from 'lucide-react';
-import { calcSafeBw } from '../utils/cssGenerator';
+import { calcSafeBw, calcTransferBw } from '../utils/cssGenerator';
 
 interface SlicingCanvasProps {
   currentComp: ComponentConfig;
@@ -607,7 +607,7 @@ export const SlicingCanvas: React.FC<SlicingCanvasProps> = ({
                 boxSizing: 'border-box',
                 borderStyle: 'solid',
                 borderColor: 'transparent',
-                borderWidth: `${calcSafeBw(currentComp.slice)[0]}px ${calcSafeBw(currentComp.slice)[1]}px ${calcSafeBw(currentComp.slice)[2]}px ${calcSafeBw(currentComp.slice)[3]}px`,
+                borderWidth: `${calcTransferBw(currentComp.slice)[0]}px ${calcTransferBw(currentComp.slice)[1]}px ${calcTransferBw(currentComp.slice)[2]}px ${calcTransferBw(currentComp.slice)[3]}px`,
                 borderImageSource: `url('${currentComp.url}')`,
                 borderImageSlice: `${currentComp.slice[0]} ${currentComp.slice[1]} ${currentComp.slice[2]} ${currentComp.slice[3]} fill`,
                 borderImageRepeat: 'stretch',

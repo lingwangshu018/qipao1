@@ -41,8 +41,8 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 
   const aiTransfer = ai.transfer || { url: ai.url, slice: ai.slice, pad: [6, 14, 6, 14], patternScale: 1.4 };
   const userTransfer = user.transfer || { url: user.url, slice: user.slice, pad: [6, 14, 6, 14], patternScale: 1.4 };
-  const bwAiTransfer = calcSafeBw(aiTransfer.slice);
-  const bwUserTransfer = calcSafeBw(userTransfer.slice);
+  const bwAiTransfer = calcTransferBw(aiTransfer.slice);
+  const bwUserTransfer = calcTransferBw(userTransfer.slice);
 
   // Active Role data
   const currentRoleData = activeRole === 'ai' ? ai : user;
