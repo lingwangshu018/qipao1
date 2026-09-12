@@ -1484,8 +1484,13 @@ export function generatePuffShortCSS(config: AppConfig): string {
 
 /* 1. 对方(AI) 气泡/语音/转账 */
 .chat-msg.is-them .chat-bubble {
+  border-style: solid !important;
+  border-color: transparent !important;
+  background: transparent !important;
   border-image-source: url('${ai.url}') !important;
   border-image-slice: ${ai.slice[0]} ${ai.slice[1]} ${ai.slice[2]} ${ai.slice[3]} fill !important;
+  border-image-repeat: stretch !important;
+  border-image-width: ${ai.patternScale} !important;
   border-width: ${bwAi[0]}px ${bwAi[1]}px ${bwAi[2]}px ${bwAi[3]}px !important;
   padding: ${ai.pad[0]}px ${ai.pad[1]}px ${ai.pad[2]}px ${ai.pad[3]}px !important;
   color: ${ai.textColor} !important;
@@ -1493,8 +1498,13 @@ export function generatePuffShortCSS(config: AppConfig): string {
 
 .chat-msg.is-them .puff-voice-pill,
 .chat-msg.is-them .voice-msg-bubble {
+  border-style: solid !important;
+  border-color: transparent !important;
+  background: transparent !important;
   border-image-source: url('${aiVoice.url}') !important;
   border-image-slice: ${aiVoice.slice[0]} ${aiVoice.slice[1]} ${aiVoice.slice[2]} ${aiVoice.slice[3]} fill !important;
+  border-image-repeat: stretch !important;
+  border-image-width: ${aiVoice.patternScale} !important;
   border-width: ${bwAiVoice[0]}px ${bwAiVoice[1]}px ${bwAiVoice[2]}px ${bwAiVoice[3]}px !important;
   padding: ${aiVoice.pad[0]}px ${aiVoice.pad[1]}px ${aiVoice.pad[2]}px ${aiVoice.pad[3]}px !important;
   color: ${ai.textColor} !important;
@@ -1502,16 +1512,26 @@ export function generatePuffShortCSS(config: AppConfig): string {
 
 .chat-msg.is-them .puff-transfer,
 .chat-msg.is-them .chat-transfer-card {
+  border-style: solid !important;
+  border-color: transparent !important;
+  background: transparent !important;
   border-image-source: url('${aiTransfer.url}') !important;
   border-image-slice: ${aiTransfer.slice[0]} ${aiTransfer.slice[1]} ${aiTransfer.slice[2]} ${aiTransfer.slice[3]} fill !important;
+  border-image-repeat: stretch !important;
+  border-image-width: ${aiTransfer.patternScale} !important;
   border-width: ${bwAiTransfer[0]}px ${bwAiTransfer[1]}px ${bwAiTransfer[2]}px ${bwAiTransfer[3]}px !important;
   padding: ${aiTransfer.pad[0]}px ${aiTransfer.pad[1]}px ${aiTransfer.pad[2]}px ${aiTransfer.pad[3]}px !important;
 }
 
 /* 2. 己方(用户) 气泡/语音/转账 */
 .chat-msg.is-me .chat-bubble {
+  border-style: solid !important;
+  border-color: transparent !important;
+  background: transparent !important;
   border-image-source: url('${user.url}') !important;
   border-image-slice: ${user.slice[0]} ${user.slice[1]} ${user.slice[2]} ${user.slice[3]} fill !important;
+  border-image-repeat: stretch !important;
+  border-image-width: ${user.patternScale} !important;
   border-width: ${bwUser[0]}px ${bwUser[1]}px ${bwUser[2]}px ${bwUser[3]}px !important;
   padding: ${user.pad[0]}px ${user.pad[1]}px ${user.pad[2]}px ${user.pad[3]}px !important;
   color: ${user.textColor} !important;
@@ -1519,8 +1539,13 @@ export function generatePuffShortCSS(config: AppConfig): string {
 
 .chat-msg.is-me .puff-voice-pill,
 .chat-msg.is-me .voice-msg-bubble {
+  border-style: solid !important;
+  border-color: transparent !important;
+  background: transparent !important;
   border-image-source: url('${userVoice.url}') !important;
   border-image-slice: ${userVoice.slice[0]} ${userVoice.slice[1]} ${userVoice.slice[2]} ${userVoice.slice[3]} fill !important;
+  border-image-repeat: stretch !important;
+  border-image-width: ${userVoice.patternScale} !important;
   border-width: ${bwUserVoice[0]}px ${bwUserVoice[1]}px ${bwUserVoice[2]}px ${bwUserVoice[3]}px !important;
   padding: ${userVoice.pad[0]}px ${userVoice.pad[1]}px ${userVoice.pad[2]}px ${userVoice.pad[3]}px !important;
   color: ${user.textColor} !important;
@@ -1528,8 +1553,13 @@ export function generatePuffShortCSS(config: AppConfig): string {
 
 .chat-msg.is-me .puff-transfer,
 .chat-msg.is-me .chat-transfer-card {
+  border-style: solid !important;
+  border-color: transparent !important;
+  background: transparent !important;
   border-image-source: url('${userTransfer.url}') !important;
   border-image-slice: ${userTransfer.slice[0]} ${userTransfer.slice[1]} ${userTransfer.slice[2]} ${userTransfer.slice[3]} fill !important;
+  border-image-repeat: stretch !important;
+  border-image-width: ${userTransfer.patternScale} !important;
   border-width: ${bwUserTransfer[0]}px ${bwUserTransfer[1]}px ${bwUserTransfer[2]}px ${bwUserTransfer[3]}px !important;
   padding: ${userTransfer.pad[0]}px ${userTransfer.pad[1]}px ${userTransfer.pad[2]}px ${userTransfer.pad[3]}px !important;
 }
