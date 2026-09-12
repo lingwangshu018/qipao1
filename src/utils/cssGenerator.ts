@@ -1301,7 +1301,9 @@ export function generatePuffCSS(config: AppConfig): string {
    2. 语音条组件 (.puff-voice-pill / .chat-msg.has-voice)
    ------------------------------------------------------- */
 /* 2.1 对方 (AI) 语音条 */
-.chat-msg.is-them.has-voice .puff-voice-pill,
+.chat-msg.is-them .puff-voice-pill,
+.chat-msg.is-them .voice-msg-bubble,
+.chat-msg.is-them[class*="voice"] .chat-msg-body,
 .chat-msg.is-them.has-voice .chat-msg-body {
   background: transparent !important;
   border-style: solid !important;
@@ -1320,14 +1322,18 @@ export function generatePuffCSS(config: AppConfig): string {
   color: ${ai.textColor} !important;
 }
 
-.chat-msg.is-them.has-voice .puff-voice-pill *,
+.chat-msg.is-them .puff-voice-pill *,
+.chat-msg.is-them .voice-msg-bubble *,
+.chat-msg.is-them[class*="voice"] .chat-msg-body *,
 .chat-msg.is-them.has-voice .chat-msg-body * {
   color: ${ai.textColor} !important;
   -webkit-text-fill-color: ${ai.textColor} !important;
 }
 
 /* 2.2 己方 (User) 语音条 */
-.chat-msg.is-me.has-voice .puff-voice-pill,
+.chat-msg.is-me .puff-voice-pill,
+.chat-msg.is-me .voice-msg-bubble,
+.chat-msg.is-me[class*="voice"] .chat-msg-body,
 .chat-msg.is-me.has-voice .chat-msg-body {
   background: transparent !important;
   border-style: solid !important;
@@ -1346,7 +1352,9 @@ export function generatePuffCSS(config: AppConfig): string {
   color: ${user.textColor} !important;
 }
 
-.chat-msg.is-me.has-voice .puff-voice-pill *,
+.chat-msg.is-me .puff-voice-pill *,
+.chat-msg.is-me .voice-msg-bubble *,
+.chat-msg.is-me[class*="voice"] .chat-msg-body *,
 .chat-msg.is-me.has-voice .chat-msg-body * {
   color: ${user.textColor} !important;
   -webkit-text-fill-color: ${user.textColor} !important;
@@ -1356,7 +1364,9 @@ export function generatePuffCSS(config: AppConfig): string {
    3. 转账卡片 (.puff-transfer / .chat-msg.has-transfer)
    ------------------------------------------------------- */
 /* 3.1 对方 (AI) 转账卡片 */
-.chat-msg.is-them.has-transfer .puff-transfer,
+.chat-msg.is-them .puff-transfer,
+.chat-msg.is-them .chat-transfer-card,
+.chat-msg.is-them[class*="transfer"] .chat-msg-body,
 .chat-msg.is-them.has-transfer .chat-msg-body {
   position: relative !important;
   background: transparent !important;
@@ -1376,7 +1386,9 @@ export function generatePuffCSS(config: AppConfig): string {
   padding: ${aiTransfer.pad[0]}px ${aiTransfer.pad[1]}px ${aiTransfer.pad[2]}px ${aiTransfer.pad[3]}px !important;
 }
 
-.chat-msg.is-them.has-transfer .puff-transfer *,
+.chat-msg.is-them .puff-transfer *,
+.chat-msg.is-them .chat-transfer-card *,
+.chat-msg.is-them[class*="transfer"] .chat-msg-body *,
 .chat-msg.is-them.has-transfer .chat-msg-body * {
   text-shadow: none !important;
   color: ${aiTransferTextColor} !important;
@@ -1384,7 +1396,9 @@ export function generatePuffCSS(config: AppConfig): string {
 }
 
 /* 3.2 己方 (User) 转账卡片 */
-.chat-msg.is-me.has-transfer .puff-transfer,
+.chat-msg.is-me .puff-transfer,
+.chat-msg.is-me .chat-transfer-card,
+.chat-msg.is-me[class*="transfer"] .chat-msg-body,
 .chat-msg.is-me.has-transfer .chat-msg-body {
   position: relative !important;
   background: transparent !important;
@@ -1404,7 +1418,9 @@ export function generatePuffCSS(config: AppConfig): string {
   padding: ${userTransfer.pad[0]}px ${userTransfer.pad[1]}px ${userTransfer.pad[2]}px ${userTransfer.pad[3]}px !important;
 }
 
-.chat-msg.is-me.has-transfer .puff-transfer *,
+.chat-msg.is-me .puff-transfer *,
+.chat-msg.is-me .chat-transfer-card *,
+.chat-msg.is-me[class*="transfer"] .chat-msg-body *,
 .chat-msg.is-me.has-transfer .chat-msg-body * {
   text-shadow: none !important;
   color: ${userTransferTextColor} !important;
