@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppConfig, ExportType } from '../types';
 import { generateCSS } from '../utils/cssGenerator';
-import { Copy, Check, Code, ShieldCheck } from 'lucide-react';
+import { Copy, Check, Code, ShieldCheck, Download, FileText } from 'lucide-react';
 
 interface CodeExportProps {
   config: AppConfig;
@@ -15,6 +15,9 @@ export const CodeExport: React.FC<CodeExportProps> = ({
   onSelectExportType,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [fileName, setFileName] = useState('puff-theme.css');
+  const [showFilenameInput, setShowFilenameInput] = useState(false);
+
   const code = generateCSS(config, exportType);
 
   const handleCopy = () => {
@@ -22,6 +25,22 @@ export const CodeExport: React.FC<CodeExportProps> = ({
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     });
+  };
+
+  const handleDownload = () => {
+    let finalName = fileName.trim();
+    if (!finalName) finalName = 'bubble-theme.css';
+    if (!finalName.endsWith('.css')) finalName += '.css';
+
+    const blob = new Blob([code], { type: 'text/css;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', finalName);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -32,7 +51,7 @@ export const CodeExport: React.FC<CodeExportProps> = ({
           <Code className="w-4 h-4 text-black" />
           <h2 className="text-xs font-black text-black uppercase tracking-wider">生成完整 CSS 代码 (全组件修复联动版)</h2>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <select
             id="export-type-select"
             value={exportType}
@@ -59,8 +78,41 @@ export const CodeExport: React.FC<CodeExportProps> = ({
             {copied ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
             <span>{copied ? '已复制！' : '复制代码'}</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => setShowFilenameInput(!showFilenameInput)}
+            className="flex items-center gap-1.5 text-xs font-black px-3 py-1.5 rounded-lg border-2 border-black bg-[#f0f2f5] hover:bg-black hover:text-white text-black transition-all shadow-[2px_2px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] active:shadow-none"
+            title="自定义文件名并下载 .css 文件"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>下载文件</span>
+          </button>
         </div>
       </div>
+
+      {/* 自定义文件名下载栏 */}
+      {showFilenameInput && (
+        <div className="flex items-center gap-2 mb-3 p-2.5 bg-[#f0f2f5] border-2 border-black rounded-lg shadow-[2px_2px_0px_#000] animate-in fade-in duration-150">
+          <FileText className="w-4 h-4 text-black shrink-0" />
+          <span className="text-xs font-black text-black whitespace-nowrap">文件名:</span>
+          <input
+            type="text"
+            value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
+            placeholder="如: my-puff-theme.css"
+            className="flex-1 font-mono text-xs font-bold px-2 py-1 bg-white border border-black rounded focus:outline-none"
+          />
+          <button
+            type="button"
+            onClick={handleDownload}
+            className="flex items-center gap-1 text-xs font-black px-3 py-1 bg-emerald-600 hover:bg-emerald-700 text-white border border-black rounded shadow-[1px_1px_0px_#000] active:translate-x-[1px] active:translate-y-[1px] transition-all shrink-0"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span>确认下载</span>
+          </button>
+        </div>
+      )}
 
       {/* 修复要点标签 */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
