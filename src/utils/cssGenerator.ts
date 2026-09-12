@@ -627,9 +627,15 @@ div[class*="w-64"][class*="rounded-2xl"] [class*="rounded-full"],
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 
-/* 外层气泡包含转账卡时隐藏自身边框，防止双层边框冲突 */
+/* 外层气泡包含转账卡或语音条时隐藏自身边框，防止双层边框嵌套冲突 */
 .sully-bubble-ai:has(div[class*="w-64"][class*="rounded-2xl"]),
-.sully-bubble-user:has(div[class*="w-64"][class*="rounded-2xl"]) {
+.sully-bubble-user:has(div[class*="w-64"][class*="rounded-2xl"]),
+.sully-bubble-ai:has(.sully-transfer-card),
+.sully-bubble-user:has(.sully-transfer-card),
+.sully-bubble-ai:has(.sully-voice-bar),
+.sully-bubble-user:has(.sully-voice-bar),
+.sully-bubble-ai:has(.voice-msg-bubble),
+.sully-bubble-user:has(.voice-msg-bubble) {
   background: transparent !important;
   border: none !important;
   border-image: none !important;

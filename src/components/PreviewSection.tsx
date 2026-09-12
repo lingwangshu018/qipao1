@@ -367,11 +367,12 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 
           {/* 2. AI 接收方：独立语音条 */}
           <div className="flex flex-col items-start">
+            <span className="text-[10px] font-black text-gray-600 mb-1 ml-1">AI 语音条</span>
             <div
               id="voice-ai-preview"
               style={aiVoiceStyle}
               onClick={() => onSelectComponent?.('voice', 'ai')}
-              className={`sully-voice-bar voice-msg-bubble flex items-center gap-2 cursor-pointer w-36 h-8 text-xs font-bold select-none transition-all ${
+              className={`sully-voice-bar voice-msg-bubble puff-voice-pill flex items-center gap-2 cursor-pointer w-36 h-8 text-xs font-bold select-none transition-all ${
                 activeRole === 'ai' && activeComponent === 'voice'
                   ? 'ring-2 ring-black ring-offset-2 scale-[1.01]'
                   : 'hover:opacity-90'
@@ -411,6 +412,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 
           {/* 3. AI 接收方：转账卡片 */}
           <div className="flex flex-col items-start">
+            <span className="text-[10px] font-black text-gray-600 mb-1 ml-1">AI 转账卡片</span>
             <div
               id="bubble-ai-transfer-card"
               style={aiTransferStyle}
@@ -418,7 +420,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
                 onSelectComponent?.('transfer', 'ai');
                 setModalRole('ai');
               }}
-              className={`sully-transfer-card chat-transfer-card w-60 sm:w-64 cursor-pointer text-xs transition-all ${
+              className={`sully-transfer-card chat-transfer-card puff-transfer w-60 sm:w-64 cursor-pointer text-xs transition-all ${
                 activeRole === 'ai' && activeComponent === 'transfer'
                   ? 'ring-2 ring-black ring-offset-2 scale-[1.01]'
                   : 'hover:opacity-90'
@@ -533,11 +535,12 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 
           {/* 6. 用户发送方：独立语音条 */}
           <div className="flex flex-col items-end self-end">
+            <span className="text-[10px] font-black text-gray-600 mb-1 mr-1">我方语音条</span>
             <div
               id="voice-user-preview"
               style={userVoiceStyle}
               onClick={() => onSelectComponent?.('voice', 'user')}
-              className={`sully-voice-bar voice-msg-bubble flex items-center justify-end gap-2 cursor-pointer w-36 h-8 text-xs font-bold select-none transition-all ${
+              className={`sully-voice-bar voice-msg-bubble puff-voice-pill flex items-center justify-end gap-2 cursor-pointer w-36 h-8 text-xs font-bold select-none transition-all ${
                 activeRole === 'user' && activeComponent === 'voice'
                   ? 'ring-2 ring-black ring-offset-2 scale-[1.01]'
                   : 'hover:opacity-90'
@@ -577,6 +580,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 
           {/* 7. 用户发送方：转账卡片 */}
           <div className="flex flex-col items-end self-end">
+            <span className="text-[10px] font-black text-gray-600 mb-1 mr-1">我方转账卡片</span>
             <div
               id="bubble-user-transfer-card"
               style={userTransferStyle}
@@ -584,7 +588,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
                 onSelectComponent?.('transfer', 'user');
                 setModalRole('user');
               }}
-              className={`sully-transfer-card chat-transfer-card w-60 sm:w-64 cursor-pointer text-xs transition-all ${
+              className={`sully-transfer-card chat-transfer-card puff-transfer w-60 sm:w-64 cursor-pointer text-xs transition-all ${
                 activeRole === 'user' && activeComponent === 'transfer'
                   ? 'ring-2 ring-black ring-offset-2 scale-[1.01]'
                   : 'hover:opacity-90'
