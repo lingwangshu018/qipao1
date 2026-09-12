@@ -1221,7 +1221,7 @@ export function generatePuffCSS(config: AppConfig): string {
     : (user.textColor || '#ffffff');
 
   return `/* =======================================================
-   Puff 即时对话全局视觉定制方案 (精准 Puff 类名与变量适配版)
+   Puff 即时对话全局视觉定制方案 (完整去除重复边框 & 强力去背景版)
    ======================================================= */
 
 /* -------------------------------------------------------
@@ -1233,10 +1233,38 @@ export function generatePuffCSS(config: AppConfig): string {
 }
 
 /* -------------------------------------------------------
-   1. 气泡框体 (.chat-msg.is-them / .chat-msg.is-me)
+   1. 彻底清除 Puff 语音和转账消息的默认/普通气泡背景与边框
    ------------------------------------------------------- */
-/* 1.1 对方 (AI) 气泡 - 仅对非语音/非转账普通气泡生效 */
-.chat-msg.is-them:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble {
+.chat-msg.has-voice .chat-bubble,
+.chat-msg.has-transfer .chat-bubble,
+.chat-msg:has(.puff-voice-pill) .chat-bubble,
+.chat-msg:has(.puff-transfer) .chat-bubble,
+.chat-msg:has(.voice-msg-bubble) .chat-bubble,
+.chat-msg:has(.chat-transfer-card) .chat-bubble,
+.chat-msg:has([class*="voice"]) .chat-bubble,
+.chat-msg:has([class*="transfer"]) .chat-bubble,
+.chat-msg.has-voice,
+.chat-msg.has-transfer,
+.chat-msg:has(.puff-voice-pill),
+.chat-msg:has(.puff-transfer),
+.chat-msg:has(.voice-msg-bubble),
+.chat-msg:has(.chat-transfer-card),
+.chat-msg:has([class*="voice"]),
+.chat-msg:has([class*="transfer"]) {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-image: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* -------------------------------------------------------
+   2. 基础普通文本气泡框体 (.chat-msg.is-them / .chat-msg.is-me)
+   ------------------------------------------------------- */
+/* 2.1 对方 (AI) 普通气泡 */
+.chat-msg.is-them:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)):not(:has([class*="voice"])):not(:has([class*="transfer"])) .chat-bubble {
   position: relative !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -1260,14 +1288,14 @@ export function generatePuffCSS(config: AppConfig): string {
   overflow-wrap: anywhere !important;
 }
 
-.chat-msg.is-them:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble * {
+.chat-msg.is-them:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)):not(:has([class*="voice"])):not(:has([class*="transfer"])) .chat-bubble * {
   background-color: transparent !important;
   color: ${ai.textColor} !important;
   -webkit-text-fill-color: ${ai.textColor} !important;
 }
 
-/* 1.2 己方 (User) 气泡 - 仅对非语音/非转账普通气泡生效 */
-.chat-msg.is-me:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble {
+/* 2.2 己方 (User) 普通气泡 */
+.chat-msg.is-me:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)):not(:has([class*="voice"])):not(:has([class*="transfer"])) .chat-bubble {
   position: relative !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -1291,21 +1319,25 @@ export function generatePuffCSS(config: AppConfig): string {
   overflow-wrap: anywhere !important;
 }
 
-.chat-msg.is-me:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble * {
+.chat-msg.is-me:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)):not(:has([class*="voice"])):not(:has([class*="transfer"])) .chat-bubble * {
   background-color: transparent !important;
   color: ${user.textColor} !important;
   -webkit-text-fill-color: ${user.textColor} !important;
 }
 
 /* -------------------------------------------------------
-   2. 语音条组件 (.puff-voice-pill / .chat-msg.has-voice)
+   3. 语音条独立组件 (.puff-voice-pill / .voice-msg-bubble)
    ------------------------------------------------------- */
-/* 2.1 对方 (AI) 语音条 */
+/* 3.1 对方 (AI) 语音条 */
 .chat-msg.is-them .puff-voice-pill,
 .chat-msg.is-them .voice-msg-bubble,
-.chat-msg.is-them[class*="voice"] .chat-msg-body,
-.chat-msg.is-them.has-voice .chat-msg-body {
+.chat-msg.is-them.has-voice .puff-voice-pill,
+.chat-msg.is-them.has-voice .voice-msg-bubble,
+.chat-msg.is-them[class*="voice"] .puff-voice-pill,
+.chat-msg.is-them[class*="voice"] .voice-msg-bubble {
+  position: relative !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-style: solid !important;
   border-color: transparent !important;
   border-radius: 0 !important;
@@ -1324,18 +1356,22 @@ export function generatePuffCSS(config: AppConfig): string {
 
 .chat-msg.is-them .puff-voice-pill *,
 .chat-msg.is-them .voice-msg-bubble *,
-.chat-msg.is-them[class*="voice"] .chat-msg-body *,
-.chat-msg.is-them.has-voice .chat-msg-body * {
+.chat-msg.is-them.has-voice .puff-voice-pill *,
+.chat-msg.is-them.has-voice .voice-msg-bubble * {
   color: ${ai.textColor} !important;
   -webkit-text-fill-color: ${ai.textColor} !important;
 }
 
-/* 2.2 己方 (User) 语音条 */
+/* 3.2 己方 (User) 语音条 */
 .chat-msg.is-me .puff-voice-pill,
 .chat-msg.is-me .voice-msg-bubble,
-.chat-msg.is-me[class*="voice"] .chat-msg-body,
-.chat-msg.is-me.has-voice .chat-msg-body {
+.chat-msg.is-me.has-voice .puff-voice-pill,
+.chat-msg.is-me.has-voice .voice-msg-bubble,
+.chat-msg.is-me[class*="voice"] .puff-voice-pill,
+.chat-msg.is-me[class*="voice"] .voice-msg-bubble {
+  position: relative !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-style: solid !important;
   border-color: transparent !important;
   border-radius: 0 !important;
@@ -1354,22 +1390,25 @@ export function generatePuffCSS(config: AppConfig): string {
 
 .chat-msg.is-me .puff-voice-pill *,
 .chat-msg.is-me .voice-msg-bubble *,
-.chat-msg.is-me[class*="voice"] .chat-msg-body *,
-.chat-msg.is-me.has-voice .chat-msg-body * {
+.chat-msg.is-me.has-voice .puff-voice-pill *,
+.chat-msg.is-me.has-voice .voice-msg-bubble * {
   color: ${user.textColor} !important;
   -webkit-text-fill-color: ${user.textColor} !important;
 }
 
 /* -------------------------------------------------------
-   3. 转账卡片 (.puff-transfer / .chat-msg.has-transfer)
+   4. 转账卡片独立组件 (.puff-transfer / .chat-transfer-card)
    ------------------------------------------------------- */
-/* 3.1 对方 (AI) 转账卡片 */
+/* 4.1 对方 (AI) 转账卡片 */
 .chat-msg.is-them .puff-transfer,
 .chat-msg.is-them .chat-transfer-card,
-.chat-msg.is-them[class*="transfer"] .chat-msg-body,
-.chat-msg.is-them.has-transfer .chat-msg-body {
+.chat-msg.is-them.has-transfer .puff-transfer,
+.chat-msg.is-them.has-transfer .chat-transfer-card,
+.chat-msg.is-them[class*="transfer"] .puff-transfer,
+.chat-msg.is-them[class*="transfer"] .chat-transfer-card {
   position: relative !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-style: solid !important;
   border-color: transparent !important;
   border-radius: 0 !important;
@@ -1388,20 +1427,23 @@ export function generatePuffCSS(config: AppConfig): string {
 
 .chat-msg.is-them .puff-transfer *,
 .chat-msg.is-them .chat-transfer-card *,
-.chat-msg.is-them[class*="transfer"] .chat-msg-body *,
-.chat-msg.is-them.has-transfer .chat-msg-body * {
+.chat-msg.is-them.has-transfer .puff-transfer *,
+.chat-msg.is-them.has-transfer .chat-transfer-card * {
   text-shadow: none !important;
   color: ${aiTransferTextColor} !important;
   -webkit-text-fill-color: ${aiTransferTextColor} !important;
 }
 
-/* 3.2 己方 (User) 转账卡片 */
+/* 4.2 己方 (User) 转账卡片 */
 .chat-msg.is-me .puff-transfer,
 .chat-msg.is-me .chat-transfer-card,
-.chat-msg.is-me[class*="transfer"] .chat-msg-body,
-.chat-msg.is-me.has-transfer .chat-msg-body {
+.chat-msg.is-me.has-transfer .puff-transfer,
+.chat-msg.is-me.has-transfer .chat-transfer-card,
+.chat-msg.is-me[class*="transfer"] .puff-transfer,
+.chat-msg.is-me[class*="transfer"] .chat-transfer-card {
   position: relative !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-style: solid !important;
   border-color: transparent !important;
   border-radius: 0 !important;
@@ -1420,36 +1462,11 @@ export function generatePuffCSS(config: AppConfig): string {
 
 .chat-msg.is-me .puff-transfer *,
 .chat-msg.is-me .chat-transfer-card *,
-.chat-msg.is-me[class*="transfer"] .chat-msg-body *,
-.chat-msg.is-me.has-transfer .chat-msg-body * {
+.chat-msg.is-me.has-transfer .puff-transfer *,
+.chat-msg.is-me.has-transfer .chat-transfer-card * {
   text-shadow: none !important;
   color: ${userTransferTextColor} !important;
   -webkit-text-fill-color: ${userTransferTextColor} !important;
-}
-
-/* 包含语音条或转账卡时清空外层默认气泡边框与内部.chat-bubble边框，消除双层边框冲突 */
-.chat-msg:has(.puff-voice-pill),
-.chat-msg:has(.puff-transfer),
-.chat-msg:has(.voice-msg-bubble),
-.chat-msg:has(.chat-transfer-card),
-.chat-msg:has([class*="voice"]),
-.chat-msg:has([class*="transfer"]),
-.chat-msg.has-voice,
-.chat-msg.has-transfer,
-.chat-msg:has(.puff-voice-pill) .chat-bubble,
-.chat-msg:has(.puff-transfer) .chat-bubble,
-.chat-msg:has(.voice-msg-bubble) .chat-bubble,
-.chat-msg:has(.chat-transfer-card) .chat-bubble,
-.chat-msg:has([class*="voice"]) .chat-bubble,
-.chat-msg:has([class*="transfer"]) .chat-bubble,
-.chat-msg.has-voice .chat-bubble,
-.chat-msg.has-transfer .chat-bubble {
-  background: transparent !important;
-  background-color: transparent !important;
-  border: none !important;
-  border-image: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
 }
 
 ${getModalCss(config, 'sully')}`;
