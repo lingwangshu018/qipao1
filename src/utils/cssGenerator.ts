@@ -392,8 +392,8 @@ export function generateSullyCSS(config: AppConfig): string {
    1. 气泡单层直出盒模型 (与物理边框无缝配合，正确定位文字)
    ------------------------------------------------------- */
 
-/* 1.1 AI 角色气泡 */
-.sully-bubble-ai {
+/* 1.1 AI 角色气泡 - 仅在不包含语音或转账时渲染普通气泡九宫格 */
+.sully-bubble-ai:not(:has(.sully-voice-bar)):not(:has(.voice-msg-bubble)):not(:has(.sully-transfer-card)):not(:has(.chat-transfer-card)):not(:has(div[class*="w-64"])) {
   position: relative !important;
   box-sizing: border-box !important;
   width: fit-content !important;
@@ -428,14 +428,14 @@ export function generateSullyCSS(config: AppConfig): string {
   z-index: 1 !important;
 }
 
-.sully-bubble-ai * {
+.sully-bubble-ai:not(:has(.sully-voice-bar)):not(:has(.voice-msg-bubble)):not(:has(.sully-transfer-card)):not(:has(.chat-transfer-card)):not(:has(div[class*="w-64"])) * {
   background-color: transparent !important;
   color: ${ai.textColor} !important;
   -webkit-text-fill-color: ${ai.textColor} !important;
 }
 
-/* 1.2 用户发送方气泡 */
-.sully-bubble-user {
+/* 1.2 用户发送方气泡 - 仅在不包含语音或转账时渲染普通气泡九宫格 */
+.sully-bubble-user:not(:has(.sully-voice-bar)):not(:has(.voice-msg-bubble)):not(:has(.sully-transfer-card)):not(:has(.chat-transfer-card)):not(:has(div[class*="w-64"])) {
   position: relative !important;
   box-sizing: border-box !important;
   width: fit-content !important;
@@ -470,7 +470,7 @@ export function generateSullyCSS(config: AppConfig): string {
   z-index: 1 !important;
 }
 
-.sully-bubble-user * {
+.sully-bubble-user:not(:has(.sully-voice-bar)):not(:has(.voice-msg-bubble)):not(:has(.sully-transfer-card)):not(:has(.chat-transfer-card)):not(:has(div[class*="w-64"])) * {
   background-color: transparent !important;
   color: ${user.textColor} !important;
   -webkit-text-fill-color: ${user.textColor} !important;
@@ -871,8 +871,8 @@ export function generateFloatCSS(config: AppConfig): string {
 /* -------------------------------------------------------
    1. 基础气泡容器 (.chat-bubble-role-*)
    ------------------------------------------------------- */
-/* 对方气泡 (AI 助手) */
-.chat-bubble-role-assistant {
+/* 对方气泡 (AI 助手) - 仅非语音/非转账时生效 */
+.chat-bubble-role-assistant:not(:has(.voice-msg-bubble)):not(:has(.puff-voice-pill)):not(:has(.chat-transfer-card)):not(:has(.puff-transfer)):not(:has(div[class*="w-64"])) {
   position: relative !important;
   background: transparent !important;
   border-style: solid !important;
@@ -898,17 +898,17 @@ export function generateFloatCSS(config: AppConfig): string {
   height: auto !important;
 }
 
-.chat-bubble-role-assistant *,
-.chat-bubble-role-assistant .chat-markdown,
-.chat-bubble-role-assistant .chat-markdown * {
+.chat-bubble-role-assistant:not(:has(.voice-msg-bubble)):not(:has(.puff-voice-pill)):not(:has(.chat-transfer-card)):not(:has(.puff-transfer)):not(:has(div[class*="w-64"])) *,
+.chat-bubble-role-assistant:not(:has(.voice-msg-bubble)):not(:has(.puff-voice-pill)):not(:has(.chat-transfer-card)):not(:has(.puff-transfer)):not(:has(div[class*="w-64"])) .chat-markdown,
+.chat-bubble-role-assistant:not(:has(.voice-msg-bubble)):not(:has(.puff-voice-pill)):not(:has(.chat-transfer-card)):not(:has(.puff-transfer)):not(:has(div[class*="w-64"])) .chat-markdown * {
   background-color: transparent !important;
   color: ${ai.textColor} !important;
   -webkit-text-fill-color: ${ai.textColor} !important;
   line-height: 1.25 !important;
 }
 
-/* 我的气泡 (用户发送方) */
-.chat-bubble-role-user {
+/* 我的气泡 (用户发送方) - 仅非语音/非转账时生效 */
+.chat-bubble-role-user:not(:has(.voice-msg-bubble)):not(:has(.puff-voice-pill)):not(:has(.chat-transfer-card)):not(:has(.puff-transfer)):not(:has(div[class*="w-64"])) {
   position: relative !important;
   background: transparent !important;
   border-style: solid !important;
@@ -1235,8 +1235,8 @@ export function generatePuffCSS(config: AppConfig): string {
 /* -------------------------------------------------------
    1. 气泡框体 (.chat-msg.is-them / .chat-msg.is-me)
    ------------------------------------------------------- */
-/* 1.1 对方 (AI) 气泡 */
-.chat-msg.is-them .chat-bubble {
+/* 1.1 对方 (AI) 气泡 - 仅对非语音/非转账普通气泡生效 */
+.chat-msg.is-them:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble {
   position: relative !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -1260,14 +1260,14 @@ export function generatePuffCSS(config: AppConfig): string {
   overflow-wrap: anywhere !important;
 }
 
-.chat-msg.is-them .chat-bubble * {
+.chat-msg.is-them:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble * {
   background-color: transparent !important;
   color: ${ai.textColor} !important;
   -webkit-text-fill-color: ${ai.textColor} !important;
 }
 
-/* 1.2 己方 (User) 气泡 */
-.chat-msg.is-me .chat-bubble {
+/* 1.2 己方 (User) 气泡 - 仅对非语音/非转账普通气泡生效 */
+.chat-msg.is-me:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble {
   position: relative !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -1291,7 +1291,7 @@ export function generatePuffCSS(config: AppConfig): string {
   overflow-wrap: anywhere !important;
 }
 
-.chat-msg.is-me .chat-bubble * {
+.chat-msg.is-me:not(.has-voice):not(.has-transfer):not(:has(.puff-voice-pill)):not(:has(.puff-transfer)):not(:has(.voice-msg-bubble)):not(:has(.chat-transfer-card)) .chat-bubble * {
   background-color: transparent !important;
   color: ${user.textColor} !important;
   -webkit-text-fill-color: ${user.textColor} !important;
