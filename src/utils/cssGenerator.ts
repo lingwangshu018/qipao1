@@ -1411,12 +1411,25 @@ export function generatePuffCSS(config: AppConfig): string {
   -webkit-text-fill-color: ${userTransferTextColor} !important;
 }
 
-/* 包含语音条或转账卡时清空外层默认气泡边框，消除双层边框冲突 */
-.chat-msg.is-them:has(.puff-voice-pill),
-.chat-msg.is-them:has(.puff-transfer),
-.chat-msg.is-me:has(.puff-voice-pill),
-.chat-msg.is-me:has(.puff-transfer) {
+/* 包含语音条或转账卡时清空外层默认气泡边框与内部.chat-bubble边框，消除双层边框冲突 */
+.chat-msg:has(.puff-voice-pill),
+.chat-msg:has(.puff-transfer),
+.chat-msg:has(.voice-msg-bubble),
+.chat-msg:has(.chat-transfer-card),
+.chat-msg:has([class*="voice"]),
+.chat-msg:has([class*="transfer"]),
+.chat-msg.has-voice,
+.chat-msg.has-transfer,
+.chat-msg:has(.puff-voice-pill) .chat-bubble,
+.chat-msg:has(.puff-transfer) .chat-bubble,
+.chat-msg:has(.voice-msg-bubble) .chat-bubble,
+.chat-msg:has(.chat-transfer-card) .chat-bubble,
+.chat-msg:has([class*="voice"]) .chat-bubble,
+.chat-msg:has([class*="transfer"]) .chat-bubble,
+.chat-msg.has-voice .chat-bubble,
+.chat-msg.has-transfer .chat-bubble {
   background: transparent !important;
+  background-color: transparent !important;
   border: none !important;
   border-image: none !important;
   box-shadow: none !important;
