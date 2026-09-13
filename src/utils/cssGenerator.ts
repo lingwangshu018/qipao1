@@ -1591,6 +1591,9 @@ export function generateXinyueCSS(config: AppConfig): string {
   box-sizing: border-box !important;
   word-break: break-word !important;
   overflow-wrap: anywhere !important;
+  height: auto !important;
+  min-height: fit-content !important;
+  overflow: visible !important;
 }
 
 .msg-row.char .msg-bubble p,
@@ -1603,6 +1606,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   background-color: transparent !important;
   margin-top: 0 !important;
   margin-bottom: 2px !important;
+  height: auto !important;
 }
 
 /* 引用块 (.msg-quote-block) 防断裂适配 */
@@ -1614,6 +1618,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   box-sizing: border-box !important;
   margin-bottom: 6px !important;
   border-radius: 6px !important;
+  height: auto !important;
 }
 
 .msg-row.user .msg-quote-block {
@@ -1638,6 +1643,8 @@ export function generateXinyueCSS(config: AppConfig): string {
   padding: ${ai.pad[0]}px ${ai.pad[1]}px ${ai.pad[2]}px ${ai.pad[3]}px !important;
   color: ${ai.textColor} !important;
   box-shadow: none !important;
+  height: auto !important;
+  min-height: 28px !important;
 }
 
 .msg-row.char .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) * {
@@ -1709,6 +1716,8 @@ export function generateXinyueCSS(config: AppConfig): string {
   padding: ${user.pad[0]}px ${user.pad[1]}px ${user.pad[2]}px ${user.pad[3]}px !important;
   color: ${user.textColor} !important;
   box-shadow: none !important;
+  height: auto !important;
+  min-height: 28px !important;
 }
 
 .msg-row.user .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) * {
