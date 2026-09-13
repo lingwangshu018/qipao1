@@ -1581,7 +1581,45 @@ export function generateXinyueCSS(config: AppConfig): string {
   const bwAiTransfer = calcTransferBw(aiTransfer.slice);
   const bwUserTransfer = calcTransferBw(userTransfer.slice);
 
-  return `/* 新月线上语聊 提取规范全组件 CSS */
+  return `/* 新月线上语聊 防撕裂全组件 CSS */
+
+/* -------------------------------------------------------
+   0. 全局净化防裂开基线 (清除段落默认背景与多余外边距)
+   ------------------------------------------------------- */
+.msg-row.char .msg-bubble,
+.msg-row.user .msg-bubble {
+  box-sizing: border-box !important;
+  word-break: break-word !important;
+  overflow-wrap: anywhere !important;
+}
+
+.msg-row.char .msg-bubble p,
+.msg-row.char .msg-bubble span,
+.msg-row.char .msg-bubble div:not(.msg-quote-block):not(.trans-top):not(.trans-bot),
+.msg-row.user .msg-bubble p,
+.msg-row.user .msg-bubble span,
+.msg-row.user .msg-bubble div:not(.msg-quote-block):not(.trans-top):not(.trans-bot) {
+  background: transparent !important;
+  background-color: transparent !important;
+  margin-top: 0 !important;
+  margin-bottom: 2px !important;
+}
+
+/* 引用块 (.msg-quote-block) 防断裂适配 */
+.msg-row.char .msg-quote-block,
+.msg-row.user .msg-quote-block {
+  background: rgba(0, 0, 0, 0.06) !important;
+  border-left: 3px solid rgba(0, 0, 0, 0.2) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-bottom: 6px !important;
+  border-radius: 6px !important;
+}
+
+.msg-row.user .msg-quote-block {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-left-color: rgba(255, 255, 255, 0.5) !important;
+}
 
 /* -------------------------------------------------------
    1. 角色 (AI 对方) 消息行与组件: .msg-row.char
@@ -1591,6 +1629,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-image-source: url('${ai.url}') !important;
   border-image-slice: ${ai.slice[0]} ${ai.slice[1]} ${ai.slice[2]} ${ai.slice[3]} fill !important;
   border-image-repeat: stretch !important;
@@ -1603,6 +1642,7 @@ export function generateXinyueCSS(config: AppConfig): string {
 
 .msg-row.char .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) * {
   color: ${ai.textColor} !important;
+  background-color: transparent !important;
 }
 
 /* 1.2 对方 (AI) 语音卡片 (.msg-bubble.voice-card) */
@@ -1610,6 +1650,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-image-source: url('${aiVoice.url}') !important;
   border-image-slice: ${aiVoice.slice[0]} ${aiVoice.slice[1]} ${aiVoice.slice[2]} ${aiVoice.slice[3]} fill !important;
   border-image-repeat: stretch !important;
@@ -1635,6 +1676,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-image-source: url('${aiTransfer.url}') !important;
   border-image-slice: ${aiTransfer.slice[0]} ${aiTransfer.slice[1]} ${aiTransfer.slice[2]} ${aiTransfer.slice[3]} fill !important;
   border-image-repeat: stretch !important;
@@ -1658,6 +1700,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-image-source: url('${user.url}') !important;
   border-image-slice: ${user.slice[0]} ${user.slice[1]} ${user.slice[2]} ${user.slice[3]} fill !important;
   border-image-repeat: stretch !important;
@@ -1670,6 +1713,7 @@ export function generateXinyueCSS(config: AppConfig): string {
 
 .msg-row.user .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) * {
   color: ${user.textColor} !important;
+  background-color: transparent !important;
 }
 
 /* 2.2 己方 (User) 语音卡片 (.msg-bubble.voice-card) */
@@ -1677,6 +1721,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-image-source: url('${userVoice.url}') !important;
   border-image-slice: ${userVoice.slice[0]} ${userVoice.slice[1]} ${userVoice.slice[2]} ${userVoice.slice[3]} fill !important;
   border-image-repeat: stretch !important;
@@ -1702,6 +1747,7 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
+  background-color: transparent !important;
   border-image-source: url('${userTransfer.url}') !important;
   border-image-slice: ${userTransfer.slice[0]} ${userTransfer.slice[1]} ${userTransfer.slice[2]} ${userTransfer.slice[3]} fill !important;
   border-image-repeat: stretch !important;
