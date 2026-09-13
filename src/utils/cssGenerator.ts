@@ -1581,15 +1581,13 @@ export function generateXinyueCSS(config: AppConfig): string {
   const bwAiTransfer = calcTransferBw(aiTransfer.slice);
   const bwUserTransfer = calcTransferBw(userTransfer.slice);
 
-  return `/* 新月线上语聊 气泡/语音/转账 专属配置 */
+  return `/* 新月线上语聊 提取规范全组件 CSS */
 
-/* =======================================================
-   一、对方 (AI 助手) 组件样式映射 (.xinyue-chat-msg.is-them)
-   ======================================================= */
-
-/* 1. 对方 (AI) 普通文字气泡 */
-.xinyue-chat-msg.is-them .chat-bubble,
-.xinyue-bubble-ai {
+/* -------------------------------------------------------
+   1. 角色 (AI 对方) 消息行与组件: .msg-row.char
+   ------------------------------------------------------- */
+/* 1.1 对方 (AI) 普通文字气泡 */
+.msg-row.char .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
@@ -1600,12 +1598,15 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-width: ${bwAi[0]}px ${bwAi[1]}px ${bwAi[2]}px ${bwAi[3]}px !important;
   padding: ${ai.pad[0]}px ${ai.pad[1]}px ${ai.pad[2]}px ${ai.pad[3]}px !important;
   color: ${ai.textColor} !important;
+  box-shadow: none !important;
 }
 
-/* 2. 对方 (AI) 语音条卡片 */
-.xinyue-chat-msg.is-them .xinyue-voice-pill,
-.xinyue-chat-msg.is-them .voice-bubble,
-.xinyue-voice-ai {
+.msg-row.char .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) * {
+  color: ${ai.textColor} !important;
+}
+
+/* 1.2 对方 (AI) 语音卡片 (.msg-bubble.voice-card) */
+.msg-row.char .msg-bubble.voice-card {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
@@ -1616,12 +1617,21 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-width: ${bwAiVoice[0]}px ${bwAiVoice[1]}px ${bwAiVoice[2]}px ${bwAiVoice[3]}px !important;
   padding: ${aiVoice.pad[0]}px ${aiVoice.pad[1]}px ${aiVoice.pad[2]}px ${aiVoice.pad[3]}px !important;
   color: ${ai.textColor} !important;
+  box-shadow: none !important;
 }
 
-/* 3. 对方 (AI) 转账卡片 */
-.xinyue-chat-msg.is-them .xinyue-transfer-card,
-.xinyue-chat-msg.is-them .transfer-card,
-.xinyue-transfer-ai {
+.msg-row.char .msg-bubble.voice-card *,
+.msg-row.char .msg-bubble.voice-card span,
+.msg-row.char .msg-bubble.voice-card .voice-trans-box {
+  color: ${ai.textColor} !important;
+}
+
+.msg-row.char .msg-bubble.voice-card .v-line {
+  background-color: ${ai.textColor} !important;
+}
+
+/* 1.3 对方 (AI) 转账卡片 (.msg-bubble.transfer-card) */
+.msg-row.char .msg-bubble.transfer-card {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
@@ -1631,15 +1641,20 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-image-width: ${aiTransfer.patternScale} !important;
   border-width: ${bwAiTransfer[0]}px ${bwAiTransfer[1]}px ${bwAiTransfer[2]}px ${bwAiTransfer[3]}px !important;
   padding: ${aiTransfer.pad[0]}px ${aiTransfer.pad[1]}px ${aiTransfer.pad[2]}px ${aiTransfer.pad[3]}px !important;
+  box-shadow: none !important;
 }
 
-/* =======================================================
-   二、己方 (User 用户) 组件样式映射 (.xinyue-chat-msg.is-me)
-   ======================================================= */
+.msg-row.char .msg-bubble.transfer-card *,
+.msg-row.char .msg-bubble.transfer-card .trans-amt,
+.msg-row.char .msg-bubble.transfer-card .trans-txt {
+  color: ${ai.textColor} !important;
+}
 
-/* 1. 己方 (User) 普通文字气泡 */
-.xinyue-chat-msg.is-me .chat-bubble,
-.xinyue-bubble-user {
+/* -------------------------------------------------------
+   2. 用户 (User 己方) 消息行与组件: .msg-row.user
+   ------------------------------------------------------- */
+/* 2.1 己方 (User) 普通文字气泡 */
+.msg-row.user .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
@@ -1650,12 +1665,15 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-width: ${bwUser[0]}px ${bwUser[1]}px ${bwUser[2]}px ${bwUser[3]}px !important;
   padding: ${user.pad[0]}px ${user.pad[1]}px ${user.pad[2]}px ${user.pad[3]}px !important;
   color: ${user.textColor} !important;
+  box-shadow: none !important;
 }
 
-/* 2. 己方 (User) 语音条卡片 */
-.xinyue-chat-msg.is-me .xinyue-voice-pill,
-.xinyue-chat-msg.is-me .voice-bubble,
-.xinyue-voice-user {
+.msg-row.user .msg-bubble:not(.voice-card):not(.transfer-card):not(.image-card):not(.sticker-card) * {
+  color: ${user.textColor} !important;
+}
+
+/* 2.2 己方 (User) 语音卡片 (.msg-bubble.voice-card) */
+.msg-row.user .msg-bubble.voice-card {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
@@ -1666,12 +1684,21 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-width: ${bwUserVoice[0]}px ${bwUserVoice[1]}px ${bwUserVoice[2]}px ${bwUserVoice[3]}px !important;
   padding: ${userVoice.pad[0]}px ${userVoice.pad[1]}px ${userVoice.pad[2]}px ${userVoice.pad[3]}px !important;
   color: ${user.textColor} !important;
+  box-shadow: none !important;
 }
 
-/* 3. 己方 (User) 转账卡片 */
-.xinyue-chat-msg.is-me .xinyue-transfer-card,
-.xinyue-chat-msg.is-me .transfer-card,
-.xinyue-transfer-user {
+.msg-row.user .msg-bubble.voice-card *,
+.msg-row.user .msg-bubble.voice-card span,
+.msg-row.user .msg-bubble.voice-card .voice-trans-box {
+  color: ${user.textColor} !important;
+}
+
+.msg-row.user .msg-bubble.voice-card .v-line {
+  background: ${user.textColor} !important;
+}
+
+/* 2.3 己方 (User) 转账卡片 (.msg-bubble.transfer-card) */
+.msg-row.user .msg-bubble.transfer-card {
   border-style: solid !important;
   border-color: transparent !important;
   background: transparent !important;
@@ -1681,6 +1708,13 @@ export function generateXinyueCSS(config: AppConfig): string {
   border-image-width: ${userTransfer.patternScale} !important;
   border-width: ${bwUserTransfer[0]}px ${bwUserTransfer[1]}px ${bwUserTransfer[2]}px ${bwUserTransfer[3]}px !important;
   padding: ${userTransfer.pad[0]}px ${userTransfer.pad[1]}px ${userTransfer.pad[2]}px ${userTransfer.pad[3]}px !important;
+  box-shadow: none !important;
+}
+
+.msg-row.user .msg-bubble.transfer-card *,
+.msg-row.user .msg-bubble.transfer-card .trans-amt,
+.msg-row.user .msg-bubble.transfer-card .trans-txt {
+  color: ${user.textColor} !important;
 }
 `;
 }
