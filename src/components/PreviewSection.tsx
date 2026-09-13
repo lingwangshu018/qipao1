@@ -22,7 +22,7 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
 }) => {
   const { ai, user } = config;
   const currentPlatform: ExportType = (exportType as ExportType) || 'sully';
-  const isDirectBorderModel = currentPlatform === 'sully' || currentPlatform === 'float' || currentPlatform === 'puff' || currentPlatform === 'puff_short';
+  const isDirectBorderModel = currentPlatform === 'sully' || currentPlatform === 'float' || currentPlatform === 'puff' || currentPlatform === 'puff_short' || currentPlatform === 'xinyue';
 
   const [isPlayingAi, setIsPlayingAi] = useState(false);
   const [isPlayingUser, setIsPlayingUser] = useState(false);
@@ -190,6 +190,18 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
           <div className="flex bg-[#e5e7eb] p-0.5 border border-black rounded-lg shadow-xs">
             <button
               type="button"
+              onClick={() => onSelectExportType?.('xinyue')}
+              className={`px-2 py-0.5 rounded text-[10px] font-black transition-all ${
+                currentPlatform === 'xinyue'
+                  ? 'bg-black text-white shadow-xs'
+                  : 'text-gray-700 hover:text-black'
+              }`}
+              title="切换为新月线上语聊专属盒模型"
+            >
+              新月线上
+            </button>
+            <button
+              type="button"
               onClick={() => onSelectExportType?.('puff_short')}
               className={`px-2 py-0.5 rounded text-[10px] font-black transition-all ${
                 currentPlatform === 'puff_short'
@@ -223,18 +235,6 @@ export const PreviewSection: React.FC<PreviewSectionProps> = ({
               title="切换为 Sully 单层真实盒模型"
             >
               Sully
-            </button>
-            <button
-              type="button"
-              onClick={() => onSelectExportType?.('float')}
-              className={`px-2 py-0.5 rounded text-[10px] font-black transition-all ${
-                currentPlatform === 'float'
-                  ? 'bg-black text-white shadow-xs'
-                  : 'text-gray-700 hover:text-black'
-              }`}
-              title="切换为 Float 原生盒模型"
-            >
-              Float
             </button>
           </div>
         </div>

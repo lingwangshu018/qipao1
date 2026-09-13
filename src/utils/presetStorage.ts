@@ -10,6 +10,36 @@ const mkComp = (url: string, slice: QuadrantValues, pad: QuadrantValues, pattern
 
 export const DEFAULT_PRESETS: SavedPreset[] = [
   {
+    id: 'builtin_xinyue',
+    name: '新月线上语聊预设',
+    note: '专门适配新月线上语聊（对方/己方 气泡、语音条、转账卡）CSS映射',
+    isBuiltin: true,
+    createdAt: 1700000004000,
+    updatedAt: 1700000004000,
+    exportType: 'xinyue',
+    config: {
+      ai: {
+        url: 'https://nos.netease.com/ysf/46882d435e011f0c2c8191370f155579.png',
+        slice: [52, 63, 47, 73],
+        pad: [0, 4, 2, 4],
+        patternScale: 1.5,
+        textColor: '#ffffff',
+        voice: mkComp('https://nos.netease.com/ysf/46882d435e011f0c2c8191370f155579.png', [52, 63, 47, 73], [0, 8, 1, 8], 1.4),
+        transfer: mkComp('https://nos.netease.com/ysf/46882d435e011f0c2c8191370f155579.png', [52, 63, 47, 73], [6, 14, 6, 14], 1.3),
+      },
+      user: {
+        url: 'https://nos.netease.com/ysf/568a947a6b5a5c8b58a789cb3f543942.png',
+        slice: [51, 58, 43, 52],
+        pad: [0, 4, 2, 4],
+        patternScale: 1.5,
+        textColor: '#000000',
+        voice: mkComp('https://nos.netease.com/ysf/568a947a6b5a5c8b58a789cb3f543942.png', [51, 58, 43, 52], [0, 8, 1, 8], 1.4),
+        transfer: mkComp('https://nos.netease.com/ysf/568a947a6b5a5c8b58a789cb3f543942.png', [51, 58, 43, 52], [6, 12, 6, 12], 1.3),
+      },
+      modalStrategy: 'ai',
+    },
+  },
+  {
     id: 'builtin_puff_short',
     name: 'Puff 迷你短模板预设',
     note: '精简版 Puff 气泡/语音/转账卡全套类名映射',

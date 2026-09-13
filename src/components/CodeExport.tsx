@@ -58,6 +58,7 @@ export const CodeExport: React.FC<CodeExportProps> = ({
             onChange={(e) => onSelectExportType(e.target.value as ExportType)}
             className="text-xs font-black bg-[#f0f2f5] border-2 border-black rounded-lg px-3 py-1.5 text-black cursor-pointer shadow-[2px_2px_0px_#000] focus:outline-none"
           >
+            <option value="xinyue">新月线上语聊模板 (全组件专属映射版)</option>
             <option value="puff_short">Puff 迷你短模板 (精简快速版)</option>
             <option value="puff">Puff 经典完整模板 (包含去背景与去重边框完整防御)</option>
             <option value="sully">Sully 全局定制模板 (彻底修复语音/转账卡)</option>
